@@ -1,0 +1,11 @@
+Hi,
+
+We are a group of 3 MSc computer science students working on a research project as part of our coursework for the course "Advanced Topics in IP Networks" led by Dr. Anat Bremler-Barr at IDC Herzliya.
+Our project is looking at the prevalence of out-of-bailiwick untrusted glue records.
+
+We would please like to get a copy of the .TLDGOESHERE zone file to assess for statistical purposes.
+
+Thank you,
+Steven Karas
+M: +1-720-477-6530
+M: +972-54-2152118
