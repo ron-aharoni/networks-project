@@ -1,0 +1,79 @@
+.UK zone files access licence
+
+    Our Policies
+    How We Develop .UK Policy
+    Policies and Rules
+    Previous Policy Discussions and Consultations
+
+1. Grant of Licence
+
+1.1. Nominet UK (“Nominet”) grants Nominet members (“Licencees”) a non-exclusive, non-transferable right to access an internet host server or servers designated by Nominet from time to time, and to transfer a copy of the .UK zone files and associated domain name registration data (“Data”) no more than once in any 24 hour period using SFTP or HTTPS.
+
+1.2. Licencees must use the Data solely for lawful purposes, and comply with all applicable laws and regulations governing the use of the Data.
+
+1.3. Licencees may not use the Data to allow, enable, or otherwise support the transmission of mass unsolicited commercial advertising, or to enable high volume automated electronic queries or data to Nominet or its registrars.
+
+1.4. Licencees may not make copies of the Data in any format, other than to use the Data lawfully in accordance with this Licence.
+
+1.5. Licencees may not distribute the Data or any copy thereof without Nominet’s prior written consent.
+
+1.6. Licencees must keep the Data secure, and take all reasonable steps to prevent unauthorised access to, use or disclosure of the Data.
+2. Fee
+
+2.1. There is no fee for obtaining the Data subject to this Licence.
+
+2.2. Nominet reserves the right to establish a licence fee at any time on thirty (30) days’ notice.
+3. Term and Termination
+
+3.1. This Licence is for an initial term of one month, automatically renewable for successive terms of one month until the termination by either party of 30 days’ notice in writing.
+
+3.2. Nominet shall be entitled without notice to suspend access to and use of the Data in its sole discretion if there is reason to believe that any of the terms and conditions of this Licence have been breached.
+
+3.3. Any termination, suspension or expiry of this Licence will not affect any accrued rights of action of either party.
+4. Ownership of Data and Intellectual Property
+
+4.1. Underlying Data ownership and intellectual property rights (including for the avoidance of doubt copyright and database rights) shall not be transferred under this Licence and shall remain vested in Nominet.
+5. Service Levels
+
+5.1. Nominet makes no guarantee that the Data will be available without interruption. We may suspend access to the Data without notice or liability for technical, legal or anti-abuse reasons.
+6. Assignment
+
+6.1. Licencees may not assign or subcontract any of your rights and obligations under this Licence without Nominet’s prior written consent.
+7. Accuracy and Exclusions of Liability
+
+7.1. Nothing in this Licence shall be taken to attempt to exclude liability for death or personal injury caused by negligence or for fraudulent misrepresentation.
+
+7.2. Subject to clause 7.1;
+
+7.2.1. all representations, and all warranties, whether express or implied by statute, law or otherwise,
+relating to the operation of this Licence and use of the Data are excluded to the maximum extent permissible by law; and
+
+7.2.2. Nominet will not have any liability whatsoever to Licencees as a result of any failure or inaccuracy, delay or error in the Data.
+
+7.3. Subject to clause 7.1, Nominet will in no event (whether in contract, tort or otherwise) be liable for;
+
+7.3.1. any loss of revenue;
+
+7.3.2. loss of profits;
+
+7.3.3. loss of goodwill;
+
+7.3.4. loss of data; or
+
+7.3.5. indirect or consequential loss suffered by Licencees arising out of this Licence or use of the Data.
+8. Relationship of the Parties
+
+8.1. Nothing in these terms and conditions, nor action taken by either party in accordance with them, creates or will be deemed to have created a partnership, association, joint venture or other co-operative entity between Nominet and Licencees. Neither party shall have any authority to bind the other in any way.
+9. General
+
+9.1. If either party cannot perform any of its contractual obligations as a result of events beyond its reasonable control, then such party will not have to perform that obligation for the duration of the relevant event.
+
+9.2. This Licence forms the entire agreement between Nominet and Licencees in relation to the provision of the Data, and supersedes all prior agreements, arrangements and understandings.
+
+9.3. No forbearance or delay in enforcing any of the provisions of this Licence will prejudice or restrict the rights of either party, nor will any waiver of any right operate as a waiver of any subsequent breach.
+
+9.4. Neither party may assign any of their rights or obligations arising from these terms and conditions.
+
+9.5. Nominet may make changes to the terms of this Licence at any time. Nominet will notify Licencees at least 30 days before the changes take effect.
+
+9.6. This Licence shall be governed by English law and the parties submit to the exclusive jurisdiction of the English Courts, save in matters of enforcement of the judgement of an English Court, where the parties submit to the non-exclusive jurisdiction of the English Court.
