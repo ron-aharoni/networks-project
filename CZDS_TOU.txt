@@ -1,0 +1,58 @@
+TERMS & CONDITIONS
+CENTRALIZED ZONE DATA SERVICE
+
+The following Terms and Conditions ("Terms") are an agreement between you and the registry operator ("Registry Operator") of the identified top-level domain ("TLD"). These Terms govern your access and use of data provided through the Centralized Zone Data Service ("CZDS" or "Service") through which you can access data contained in a DNS zone file of the Registry Operator's TLD as provided to TLD nameservers on the Internet (the "Data"). The terms "you" and "your" in uppercase or lowercase shall mean the user of the data provided through the CZDS.
+
+1. GRANT OF ACCESS; RESTRICTIONS ON USE
+
+You are granted a nonexclusive, nontransferable, limited right to access and use for any legal purpose not otherwise prohibited by the Terms the Data made available to you from the CZDS. You agree that you will:
+
+1.1. use this Data only for lawful purposes but that under no circumstances will you use this Data to: (1) allow, enable, or otherwise support any marketing activities, regardless of the medium used. Such media include but are not limited to transmission by e-mail, telephone, or facsimile, postal mail, SMS, and wireless alerts of mass unsolicited, commercial advertising or solicitations to entities other than your own existing customers; or (2) enable high volume, automated, electronic processes that send queries or data to the systems of registry operator or any ICANN-accredited registrar, except as reasonably necessary to register domain names or modify existing registrations.
+
+1.2. not use this Data, nor permit this Data to be used to harass, annoy, interrupt, disrupt, or interfere in the normal business operations or any registrant.
+
+1.3. not to use this Data, nor permit this Data to be used for any marketing purposes whatsoever.
+
+1.4. copy the Data you obtain under this Agreement into a machine-readable or printed form only as necessary to use it in accordance with this Agreement in support of your use of the Data.
+
+1.5. comply with all applicable laws and regulations governing the use of the Data.
+
+1.6. not distribute the Data you obtained under this Agreement or any copy thereof to any other party without the express prior written consent of Registry Operator, except that you may redistribute the Data insofar as it has been incorporated by you into a value-added product or service that does not permit the extraction of a substantial portion of the Data from the value-added product or service, provided you prohibit the recipient of the Data from using the Data in a manner contrary to Section 1.1.
+
+1.7. take all reasonable steps to protect against unauthorized access to, use of, and disclosure of the Data you obtain under this Agreement.
+
+1.8. access the Data through CZDS using SFTP or HTTP no more than once per 24-hour period.
+
+2. ACCESS TO SERVICES
+
+Only you are authorized to use the Data made available through the CZDS. The User ID and associated password provided to you in conjunction with these Terms is only to be used to obtain the Data for the identified TLD.
+
+3. PROPRIETARY RIGHTS
+
+You agree that no ownership rights in the Data are transferred to you by these Terms. You agree that any copies of the Data that you make will contain the same notice that appears on and in the Data obtained under these Terms.
+
+4. METHOD OF ACCESS
+
+Registry Operator reserves the right, with the approval of ICANN, to change the method of access to the Data at any time. You also agree that, in the event of significant degradation of system processing or other emergency, Registry Operator may, in its sole discretion, and without notice, temporarily suspend access under these Terms in order to minimize threats to the operational stability and security of the Internet.
+
+5. DISCLAIMER
+
+YOU EXPRESSLY AGREE THAT YOUR USE OF, OR INABILITY TO USE, THE SERVICE IS AT YOUR SOLE RISK. THE SERVICE AND ALL DATA DELIVERED TO YOU THROUGH THE SERVICE ARE PROVIDED "AS IS" AND "AS AVAILABLE" FOR YOUR USE, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NONINFRINGEMENT. BECAUSE SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES, THE ABOVE EXCLUSION OF IMPLIED WARRANTIES MAY NOT APPLY TO YOU.
+
+IN NO CASE SHALL REGISTRY OPERATOR OR ICANN, AND THEIR DIRECTORS, OFFICERS, EMPLOYEES, AFFILIATES, AGENTS, CONTRACTORS, OR LICENSORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, PUNITIVE, SPECIAL, OR CONSEQUENTIAL DAMAGES ARISING FROM YOUR USE OF ANY OF THE DATA OR SERVICE OR FOR ANY OTHER CLAIM RELATED IN ANY WAY TO YOUR USE OF THE DATA OR SERVICE, INCLUDING, BUT NOT LIMITED TO, ANY ERRORS OR OMISSIONS IN ANY MATERIAL, OR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF ANY DATA MADE AVAILABLE VIA THE SERVICE, EVEN IF ADVISED OF THEIR POSSIBILITY. BECAUSE SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR THE LIMITATION OF OR JURISDICTIONS, ICANN'S AND REGISTRY OPERATOR'S LIABILITY SHALL BE LIMITED TO THE EXTENT PERMITTED BY LAW.
+
+6. GOVERNING LAW
+
+These Terms shall be governed and construed in accordance with the laws of the State of California. You agree that any legal action or other legal proceeding relating to these Terms or the enforcement of any provision shall be brought or otherwise commenced only in Los Angeles County, California. You expressly and irrevocably agree and consent to the personal jurisdiction and venue of the relevant courts within Los Angeles County, California for matters arising in connection with these Terms or your obtaining, use, or distribution of the Data. The United Nations Convention on Contracts for the International Sale of Goods is specifically disclaimed.
+
+7. TERMINATION
+
+These Terms are effective until terminated by either you or Registry Operator. You may terminate these Terms at any time by no longer accessing the Data through the Service, provided that all prior uses of the Data shall be governed by these Terms. Registry Operator may terminate these Terms at any time and without notice, and accordingly deny you access to the Data, for any reason, including Your failure to comply with any provision of these Terms.
+
+8. SEVERABILITY
+
+In the event of invalidity of any provision of these Terms, the parties agree that such invalidity shall not affect the validity of the remaining provisions of the Terms.
+
+9. ENTIRE AGREEMENT
+
+This is the entire agreement between you and Registry Operator concerning access to the Data through the Service, and it supersedes any prior agreements or understandings, whether written or oral, relating to access and use of the Data.

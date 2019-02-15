@@ -1,0 +1,49 @@
+Terms of Use
+
+BY USING OR ACCESSING THE INTERNET CORPORATION FOR ASSIGNED NAMES AND NUMBERS’ (“ICANN”) CENTRALIZED ZONE DATA SERVICE (“CZDS”), YOU AGREE TO BE BOUND BY AND COMPLY WITH THESE TERMS OF USE.
+
+IF YOU DO NOT AGREE TO THESE TERMS OF USE, PLEASE DISCONTINUE AND DO NOT PROCEED TO USE CZDS.
+
+1. DEFINITIONS
+
+“You” means the individual user of the CZDS (whether registered or not).
+
+2. USE LICENSE
+
+2.1 License Grant. Subject to complying with these Terms of Use, ICANN grants to You a limited, non-sublicenseable, non-exclusive, non-transferable log-in license to use the CZDS (“License”).
+
+2.2 Username and Password. You are responsible for maintaining the confidentiality of your account log-in and password information, and for the security of your computer to access the CZDS. In the event of a breach of security, You agree to immediately change your password and to promptly notify ICANN of any CZDS security breach in writing.
+
+2.3 Restrictions. You must not: (a) reverse engineer, disassemble, decompile or otherwise attempt to access or determine CZDS source code; (b) re-distribute or sublicense access to CZDS, or any part thereof, to any third party; (c) engage in any malicious or illegal behavior in connection with access or use of CZDS (including without limitation, submitting malicious code or engaging in other activity designed to compromise the availability, security or data of CZDS); (d) remove, modify or obscure any copyright, trademark or other proprietary rights notices that are contained in or on software accessed under this License; or (e) allow, assist or permit a third party to do any of the foregoing.
+
+3. INTELLECTUAL PROPERTY RIGHTS
+
+CZDS and all intellectual property rights therein, is licensed to You, not sold. All rights in CZDS not licensed to You under these Terms of Use are expressly retained by ICANN and its licensors. Your rights to access and use the data available through the CZDS may be subject to agreements with third parties.
+
+4. PERSONAL INFORMATION
+
+You acknowledge and consent that ICANN’s privacy statement posted at https://www.myicann.org/privacy governs the use, collection and handling of any personal data submitted, processed by or in relation to CZDS.
+
+5. TERMINATION
+
+ICANN may terminate the License (i) if You commit a breach of any of the Terms of Use and if capable of remedy, fail to remedy the breach within fourteen (14) calendar days of receiving written notice from ICANN or (ii) where ICANN ceases to operate or provide general access to CZDS. Notwithstanding the foregoing, ICANN may immediately terminate the License if You commit a breach of Sections 2.3 of the Terms of Use.
+
+You may terminate the License and your personal login at anytime.
+
+In the event of termination, You must cease using CZDS. You further acknowledge that ICANN may terminate your password, account and use of CZDS immediately upon the effective date of termination and that ICANN may retain any information previously entered into CZDS.
+
+6. DISCLAIMER; LIMITATION OF LIABILITY & INDEMNITY
+
+USE OF CZDS AND THIS LICENSE IS PROVIDED ON AN “AS IS” AND “AS AVAILABLE” BASIS. TO THE FULLEST EXTENT PERMITTED BY LAW, ICANN, ITS OFFICERS, DIRECTORS, EMPLOYEES, LICENSORS AND AGENTS DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, IN CONNECTION WITH CZDS AND YOUR USE OF CZDS. ICANN MAKES NO WARRANTIES OR REPRESENTATIONS ABOUT THE FITNESS FOR USE, NON-INFRINGEMENT, AVAILABILITY OR RELIABILITY OF CZDS OR THAT CZDS IS ERROR-FREE.
+
+IN NO EVENT SHALL ICANN, ITS OFFICERS, DIRECTORS, EMPLOYEES, LICENSORS OR AGENTS, BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES WHATSOEVER RESULTING FROM ANY (I) ERRORS, MISTAKES, OR INACCURACIES IN CZDS, (II) INJURY OR DAMAGE, OF ANY NATURE WHATSOEVER, RESULTING FROM ACCESS TO AND USE OF CZDS, (III) INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM CZDS, (IV) BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE, WHICH MAY BE TRANSMITTED TO OR THROUGH CZDS BY ANY THIRD PARTY, (V) DENIAL OF SERVICE OR ANY MALICIOUS SECURITY EXPLOIT INVOLVING CZDS, AND/OR (VI) LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF ANY USE, COMPROMISE, OR LOSS OF PERSONAL DATA MADE AVAILABLE VIA CZDS, WHETHER BASED ON WARRANTY, CONTRACT, TORT, OR ANY OTHER LEGAL THEORY, AND WHETHER OR NOT YOU HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. THE FOREGOING LIMITATION OF LIABILITY SHALL APPLY TO THE FULLEST EXTENT PERMITTED BY LAW IN ANY APPLICABLE JURISDICTION.
+
+7. GENERAL
+
+7.1 ICANN may modify these Terms of Use at any time. Any material change to these Terms of Use may be posted publicly or notified to You via written or electronic means. Any access or use of CZDS by You, following publication or notification, will be treated as your acceptance of the revised Terms of Use.
+
+7.2 Sections 3 to 7 survive any termination or expiry of the License.
+
+7.3 Any non-English translation of these Terms of Use that ICANN may make available are for convenience only. In the event of any inconsistency between the translated version and the English version, the English version of these Terms of Use will prevail.
+
+7.4 These Terms of Use are governed by the laws of the State of California.
