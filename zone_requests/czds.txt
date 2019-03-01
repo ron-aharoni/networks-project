@@ -1,0 +1,5 @@
+We're 3 MSc computer science students at IDC Herzliyah working on a project to check how many domains have out-of-bailiwick nameservers and untrusted glue records.
+
+This work is done as part of the Advanced Topics in IP Networks course led by Dr. Anat Bremler-Barr.
+
+SFTP IP: 163.172.140.232
