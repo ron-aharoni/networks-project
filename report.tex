@@ -29,6 +29,35 @@
 % TODO: fill in background on DNS and nameservers and glue records
 % TODO: fill in background on bailiwick concept and in-bailiwick servers and out-of-bailiwick servers
 
+DNS in broad strokes works by translating human-friendly textual names into IP addresses that can be used to send traffic to a server.
+DNS is organized into a hierarchical tree with a single entity responsible for each branch in the tree.
+For example, the root of the tree is managed by ICANN, and each of the top level domains underneath are managed by various registries.
+
+\subsection{Bailiwick definition}
+
+A bailiwick for DNS purposes is defined\cite{rfc7719} as:
+
+\begin{quote}
+In-bailiwick:
+
+      (a) An adjective to describe a name server whose name is either
+      subordinate to or (rarely) the same as the zone origin.  In-
+      bailiwick name servers require glue records in their parent zone
+      (using the first of the definitions of "glue records" in the
+      definition above).
+
+      (b) Data for which the server is either authoritative, or else
+      authoritative for an ancestor of the owner name.  This sense of
+      the term normally is used when discussing the relevancy of glue
+      records in a response.  For example, the server for the parent
+      zone "example.com" might reply with glue records for
+      "ns.child.example.com".  Because the "child.example.com" zone is a
+      descendant of the "example.com" zone, the glue records are in-
+      bailiwick.
+
+   Out-of-bailiwick:  The antonym of in-bailiwick
+\end{quote}
+
 \section{Data}
 
 We downloaded the Majestic Million\cite{MajesticMillion} on January 18th, 2019.
@@ -36,6 +65,8 @@ This is a list of the top one million sites ranked by the number of subnet that 
 
 % TODO: describe the data itself, where it came from and how it was collected
 
+In parallel to building the code to query the DNS directly, we requested access to the zone files for all the gtlds, including .com and .name, and several ccTLDs that were listed.
+This will allow us to ensure authoritative data.
 \subsection{Data Quality}
 
 % TODO: we should check the quality of the dataset before doing the analysis
