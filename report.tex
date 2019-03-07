@@ -62,17 +62,32 @@ In-bailiwick:
 
 We downloaded the Majestic Million\cite{MajesticMillion} on January 18th, 2019.
 This is a list of the top one million sites ranked by the number of subnet that link to them, collected and published by Majestic.com.
+From these, we constructed a list of 1,000,878 domains and domain prefixes to check for out of bailiwick glue records.
 
-% TODO: describe the data itself, where it came from and how it was collected
+% TODO: explain how we created that list
 
-In parallel to building the code to query the DNS directly, we requested access to the zone files for all the gtlds, including .com and .name, and several ccTLDs that were listed.
-This will allow us to ensure authoritative data.
+\subsection{DNS record collection}
+
+We used a BIND server configured as a recursive resolver to query the records for the domain list.
+We run a small pipeline in parallel\cite{Tange2011a} to do this quickly.
+
+% In parallel to building the code to query the DNS directly, we requested access to the zone files for all the gtlds, including .com and .name, and several ccTLDs that were listed.
+% This will allow us to ensure authoritative data.
+
+% \paragraph{.DE ccTLD zone file policy}
+
+% \href{https://www.denic.de/en/faqs/general-information/#faq-154}{DENIC}, the authoritative registry for the .DE ccTLD hold a strict policy of not sending the zone file to any third parties.
+
 \subsection{Data Quality}
+
+From some randomized sampling of the domain list, some of the domains are listed because of links to subdomains, whereas others were included despite being subdomains of others in the list (e.g. plus.google.com and google.com both appear on the list)
 
 % TODO: we should check the quality of the dataset before doing the analysis
 
-https://singaporedatacompany.com/blog/how-many-domain-names-are-unused
-https://dofo.com/
+% https://singaporedatacompany.com/blog/how-many-domain-names-are-unused
+% https://dofo.com/
+
+% certificate transparency for certs - to enumerate all public websites
 
 % anecdote: feedio.net is errored out, but seems to have subdomains used for copyrighted content streaming.
 
