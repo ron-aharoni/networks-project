@@ -92,6 +92,75 @@ class CNAME(RR):
         return cls(name=name, ttl=int(ttl), rrclass=rrclass, canonical_name=canonical_name)
 
 
+def main2():
+    num_ns_records = 0
+    num_glue_records = 0
+    num_out_of_bailiwick_glue = 0
+    num_loose_out_bailiwick_glue = 0
+    num_domains = 0
+    improper_glue = 0
+    ns_records = {}
+    glue_records = []
+    is_nx = False
+    num_nxdomain = 0
+    num_emptys = 0
+    for line in fileinput.input():
+        if line.startswith(';; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN'):
+            is_nx = True
+
+        if line.startswith(';; MSG SIZE'):
+            if is_nx:
+                num_nxdomain += 1
+                if ns_records or glue_records:
+                    print('Anomolous NXDOMAIN with results: %s' % ns_records.values()[0].name)
+            if not ns_records and not glue_records:
+                num_emptys += 1
+
+            is_nx = False
+            num_domains += 1
+            for ns_record in ns_records.values():
+                num_ns_records += 1
+                if ns_record.is_in_bailiwick():
+                    continue
+
+            for glue in glue_records:
+                num_glue_records += 1
+                ns_record = ns_records.get(glue.name)
+                if ns_record is None:
+                    improper_glue += 1
+                elif ns_record.is_in_bailiwick():
+                    pass
+                else:
+                    num_out_of_bailiwick_glue += 1
+                    if ns_record.shared_prefix() == '':
+                        num_loose_out_bailiwick_glue += 1
+
+            ns_records.clear()
+            glue_records = []
+
+        if line.startswith(';') or not line.strip():
+            continue
+
+        record = RR.from_zone_line(line.strip())
+        if record is None:
+            continue
+
+        if record.rrtype == NS.rrtype:
+            ns_records[record.nameserver] = record
+
+        if record.rrtype == A.rrtype:
+            glue_records.append(record)
+
+    print('Number of domains: %s' % num_domains)
+    print('NXDOMAINs: %s' % num_nxdomain)
+    print('Number of empty domains: %s' % num_emptys)
+    print('Number of NS records: %s' % num_ns_records)
+    print('Number of glue records: %s' % num_glue_records)
+    print('Number of improper glue records: %s' % improper_glue)
+    print('Out of bailiwick glue: %s' % num_out_of_bailiwick_glue)
+    print('Loosely out of bailiwick glue: %s' % num_loose_out_bailiwick_glue)
+
+
 @dataclass()
 class Statistics:
     num_ns: int = 0
@@ -219,7 +288,7 @@ def main():
     print('loosely mixed domains: %d' % statistics.loosely_mixed_bailiwick)
     print('loosely out domains: %d' % statistics.loosely_out_of_bailiwick)
     print('')
-    NUM_POPULAR=10
+    NUM_POPULAR=5
     print('%d most popular nameservers:' % NUM_POPULAR)
     for ns, count in popular_nameservers.most_common(NUM_POPULAR):
         print('%d %s' % (count, ns))
@@ -229,4 +298,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main2()
