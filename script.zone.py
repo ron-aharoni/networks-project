@@ -119,6 +119,11 @@ def main():
     in_bailiwick_ns = 0
     out_of_bailiwick_ns = 0
     ancestral_bailiwick_ns = 0
+
+    fully_in_bailiwick = 0
+    fully_out_of_bailiwick = 0
+    mixed_bailiwick = 0
+
     popular_nameservers = Counter()
     popular_services = Counter()
     for name, records_by_type in records_by_name_and_type.items():
@@ -128,16 +133,20 @@ def main():
             continue
 
         num_ns += len(ns_records)
+        has_in_bailiwick = False
+        has_out_of_bailiwick = False
         for ns in ns_records:
             missing_ipv4 = False
             missing_ipv6 = False
 
             if ns.is_in_bailiwick():
                 in_bailiwick_ns += 1
+                has_in_bailiwick = True
             else:
                 if ns.shared_prefix() != '':
                     ancestral_bailiwick_ns += 1
                 out_of_bailiwick_ns += 1
+                has_out_of_bailiwick = True
 
             popular_nameservers.update({ns.nameserver: 1})
             popular_services.update({'.'.join(ns.nameserver.split('.')[1:]): 1})
@@ -159,6 +168,15 @@ def main():
             if missing_ipv4 and missing_ipv6:
                 missing_glue += 1
 
+        if has_in_bailiwick and has_out_of_bailiwick:
+            mixed_bailiwick += 1
+        elif has_in_bailiwick:
+            fully_in_bailiwick += 1
+        elif has_out_of_bailiwick:
+            fully_out_of_bailiwick += 1
+        else:
+            assert False, 'cannot happen'
+
     print('Out of %d domains:' % (len(records_by_name_and_type) - missing_ns))
     print('NS records total: %d' % num_ns)
     print('missing glue records: %d' % missing_glue)
@@ -168,6 +186,10 @@ def main():
     print('in bailiwick NS: %d' % in_bailiwick_ns)
     print('ancestral bailiwick NS: %d' % ancestral_bailiwick_ns)
     print('out of bailiwick NS: %d' % out_of_bailiwick_ns)
+    print('')
+    print('fully in domains: %d' % fully_in_bailiwick)
+    print('mixed domains: %d' % mixed_bailiwick)
+    print('fully out domains: %d' % fully_out_of_bailiwick)
     print('')
     NUM_POPULAR=10
     print('%d most popular nameservers:' % NUM_POPULAR)
