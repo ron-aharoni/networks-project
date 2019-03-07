@@ -84,7 +84,7 @@ def main():
     num_lines = 0
     for line in fileinput.input():
         num_lines += 1
-        if not line:
+        if not line.strip():
             continue
 
         record = RR.from_zone_line(line.strip())
