@@ -120,6 +120,7 @@ def main():
     out_of_bailiwick_ns = 0
     ancestral_bailiwick_ns = 0
     popular_nameservers = Counter()
+    popular_services = Counter()
     for name, records_by_type in records_by_name_and_type.items():
         ns_records = records_by_type.get('NS')
         if ns_records is None:
@@ -139,6 +140,7 @@ def main():
                 out_of_bailiwick_ns += 1
 
             popular_nameservers.update({ns.nameserver: 1})
+            popular_services.update({'.'.join(ns.nameserver.split('.')[1:]): 1})
 
             records_by_type = records_by_name_and_type.get(ns.nameserver)
             if records_by_type is None:
@@ -167,8 +169,12 @@ def main():
     print('ancestral bailiwick NS: %d' % ancestral_bailiwick_ns)
     print('out of bailiwick NS: %d' % out_of_bailiwick_ns)
     print('')
-    print('10 most popular nameservers:')
-    for ns, count in popular_nameservers.most_common(10):
+    NUM_POPULAR=10
+    print('%d most popular nameservers:' % NUM_POPULAR)
+    for ns, count in popular_nameservers.most_common(NUM_POPULAR):
+        print('%d %s' % (count, ns))
+    print('%d most popular services:' % NUM_POPULAR)
+    for ns, count in popular_services.most_common(NUM_POPULAR):
         print('%d %s' % (count, ns))
 
 
