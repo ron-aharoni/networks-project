@@ -92,6 +92,26 @@ class CNAME(RR):
         return cls(name=name, ttl=int(ttl), rrclass=rrclass, canonical_name=canonical_name)
 
 
+@dataclass()
+class Statistics:
+    num_ns: int = 0
+    missing_ns: int = 0
+    missing_glue: int = 0
+    missing_ipv4_glue: int = 0
+    missing_ipv6_glue: int = 0
+    in_bailiwick_ns: int = 0
+    out_of_bailiwick_ns: int = 0
+    ancestral_bailiwick_ns: int = 0
+
+    strictly_in_bailiwick: int = 0
+    strictly_out_of_bailiwick: int = 0
+    strictly_mixed_bailiwick: int = 0
+
+    loosely_in_bailiwick: int = 0
+    loosely_out_of_bailiwick: int = 0
+    loosely_mixed_bailiwick: int = 0
+
+
 def main():
     zone_records = []
     num_lines = 0
@@ -111,42 +131,37 @@ def main():
     for record in zone_records:
         records_by_name_and_type[record.name][record.rrtype].add(record)
 
-    num_ns = 0
-    missing_ns = 0
-    missing_glue = 0
-    missing_ipv4_glue = 0
-    missing_ipv6_glue = 0
-    in_bailiwick_ns = 0
-    out_of_bailiwick_ns = 0
-    ancestral_bailiwick_ns = 0
-
-    fully_in_bailiwick = 0
-    fully_out_of_bailiwick = 0
-    mixed_bailiwick = 0
+    statistics = Statistics()
 
     popular_nameservers = Counter()
     popular_services = Counter()
     for name, records_by_type in records_by_name_and_type.items():
         ns_records = records_by_type.get('NS')
         if ns_records is None:
-            missing_ns += 1
+            statistics.missing_ns += 1
             continue
 
-        num_ns += len(ns_records)
-        has_in_bailiwick = False
-        has_out_of_bailiwick = False
+        statistics.num_ns += len(ns_records)
+        strictly_has_in_bailiwick = False
+        strictly_has_out_of_bailiwick = False
+        loosely_has_in_bailiwick = False
+        loosely_has_out_of_bailiwick = False
         for ns in ns_records:
             missing_ipv4 = False
             missing_ipv6 = False
 
             if ns.is_in_bailiwick():
-                in_bailiwick_ns += 1
-                has_in_bailiwick = True
+                statistics.in_bailiwick_ns += 1
+                strictly_has_in_bailiwick = True
+                loosely_has_in_bailiwick = True
             else:
                 if ns.shared_prefix() != '':
-                    ancestral_bailiwick_ns += 1
-                out_of_bailiwick_ns += 1
-                has_out_of_bailiwick = True
+                    statistics.ancestral_bailiwick_ns += 1
+                    loosely_has_in_bailiwick = True
+                else:
+                    loosely_has_out_of_bailiwick = True
+                statistics.out_of_bailiwick_ns += 1
+                strictly_has_out_of_bailiwick = True
 
             popular_nameservers.update({ns.nameserver: 1})
             popular_services.update({'.'.join(ns.nameserver.split('.')[1:]): 1})
@@ -158,38 +173,51 @@ def main():
             a_records = records_by_type.get('A')
             if a_records is None:
                 missing_ipv4 = True
-                missing_ipv4_glue += 1
+                statistics.missing_ipv4_glue += 1
 
             aaaa_records = records_by_type.get('AAAA')
             if aaaa_records is None:
                 missing_ipv6 = True
-                missing_ipv6_glue += 1
+                statistics.missing_ipv6_glue += 1
 
             if missing_ipv4 and missing_ipv6:
-                missing_glue += 1
+                statistics.missing_glue += 1
 
-        if has_in_bailiwick and has_out_of_bailiwick:
-            mixed_bailiwick += 1
-        elif has_in_bailiwick:
-            fully_in_bailiwick += 1
-        elif has_out_of_bailiwick:
-            fully_out_of_bailiwick += 1
+        if strictly_has_in_bailiwick and strictly_has_out_of_bailiwick:
+            statistics.strictly_mixed_bailiwick += 1
+        elif strictly_has_in_bailiwick:
+            statistics.strictly_in_bailiwick += 1
+        elif strictly_has_out_of_bailiwick:
+            statistics.strictly_out_of_bailiwick += 1
         else:
             assert False, 'cannot happen'
 
-    print('Out of %d domains:' % (len(records_by_name_and_type) - missing_ns))
-    print('NS records total: %d' % num_ns)
-    print('missing glue records: %d' % missing_glue)
-    print('ipv4 only NS records: %d' % missing_ipv6_glue)
-    print('ipv6 only NS glue: %d' % missing_ipv4_glue)
+        if loosely_has_in_bailiwick and loosely_has_out_of_bailiwick:
+            statistics.loosely_mixed_bailiwick += 1
+        elif loosely_has_in_bailiwick:
+            statistics.loosely_in_bailiwick += 1
+        elif loosely_has_out_of_bailiwick:
+            statistics.loosely_out_of_bailiwick += 1
+        else:
+            assert False, 'cannot happen'
+
+    print('Out of %d domains:' % (len(records_by_name_and_type) - statistics.missing_ns))
+    print('NS records total: %d' % statistics.num_ns)
+    print('missing glue records: %d' % statistics.missing_glue)
+    print('ipv4 only NS records: %d' % statistics.missing_ipv6_glue)
+    print('ipv6 only NS glue: %d' % statistics.missing_ipv4_glue)
     print('')
-    print('in bailiwick NS: %d' % in_bailiwick_ns)
-    print('ancestral bailiwick NS: %d' % ancestral_bailiwick_ns)
-    print('out of bailiwick NS: %d' % out_of_bailiwick_ns)
+    print('in bailiwick NS: %d' % statistics.in_bailiwick_ns)
+    print('ancestral bailiwick NS: %d' % statistics.ancestral_bailiwick_ns)
+    print('out of bailiwick NS: %d' % statistics.out_of_bailiwick_ns)
     print('')
-    print('fully in domains: %d' % fully_in_bailiwick)
-    print('mixed domains: %d' % mixed_bailiwick)
-    print('fully out domains: %d' % fully_out_of_bailiwick)
+    print('strictly in domains: %d' % statistics.strictly_in_bailiwick)
+    print('strictly mixed domains: %d' % statistics.strictly_mixed_bailiwick)
+    print('strictly out domains: %d' % statistics.strictly_out_of_bailiwick)
+    print('')
+    print('loosely in domains: %d' % statistics.loosely_in_bailiwick)
+    print('loosely mixed domains: %d' % statistics.loosely_mixed_bailiwick)
+    print('loosely out domains: %d' % statistics.loosely_out_of_bailiwick)
     print('')
     NUM_POPULAR=10
     print('%d most popular nameservers:' % NUM_POPULAR)
