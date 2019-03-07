@@ -67,6 +67,18 @@ class NS(RR):
         name, ttl, rrclass, rrtype, nameserver = line.split(maxsplit=4)
         return cls(name=name, ttl=int(ttl), rrclass=rrclass, nameserver=nameserver)
 
+    def is_in_bailiwick(self):
+        return self.nameserver.endswith(self.name)
+
+    def shared_prefix(self):
+        result = []
+        for lhs, rhs in zip(reversed(self.name.split('.')), reversed(self.nameserver.split('.'))):
+            if lhs != rhs:
+                break
+            result.append(lhs)
+
+        return '.'.join(reversed(result))
+
 
 @dataclass(frozen=True)
 class CNAME(RR):
@@ -98,19 +110,31 @@ def main():
     for record in zone_records:
         records_by_name_and_type[record.name][record.rrtype].add(record)
 
+    num_ns = 0
     missing_ns = 0
     missing_glue = 0
     missing_ipv4_glue = 0
     missing_ipv6_glue = 0
+    in_bailiwick_ns = 0
+    out_of_bailiwick_ns = 0
+    ancestral_bailiwick_ns = 0
     for name, records_by_type in records_by_name_and_type.items():
         ns_records = records_by_type.get('NS')
         if ns_records is None:
             missing_ns += 1
             continue
 
+        num_ns += len(ns_records)
         for ns in ns_records:
             missing_ipv4 = False
             missing_ipv6 = False
+
+            if ns.is_in_bailiwick():
+                in_bailiwick_ns += 1
+            else:
+                if ns.shared_prefix() != '':
+                    ancestral_bailiwick_ns += 1
+                out_of_bailiwick_ns += 1
 
             records_by_type = records_by_name_and_type.get(ns.nameserver)
             if records_by_type is None:
@@ -129,13 +153,15 @@ def main():
             if missing_ipv4 and missing_ipv6:
                 missing_glue += 1
 
-        if missing_glue > 0:
-            break
-
     print('Out of %d domains:' % (len(records_by_name_and_type) - missing_ns))
+    print('NS records total: %d' % num_ns)
     print('missing glue records: %d' % missing_glue)
     print('ipv4 only NS records: %d' % missing_ipv6_glue)
     print('ipv6 only NS glue: %d' % missing_ipv4_glue)
+    print('')
+    print('in bailiwick NS: %d' % in_bailiwick_ns)
+    print('ancestral bailiwick NS: %d' % ancestral_bailiwick_ns)
+    print('out of bailiwick NS: %d' % out_of_bailiwick_ns)
 
 
 if __name__ == '__main__':
