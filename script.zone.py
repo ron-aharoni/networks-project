@@ -104,7 +104,16 @@ def main2():
     is_nx = False
     num_nxdomain = 0
     num_emptys = 0
+    import csv
+    output_file = 'raw_results.csv'
+    f = open(output_file, 'w')
+    writer = csv.writer(f)
+    writer.writerow(['Domain', 'Num NS records', 'Num glue records', 'Num out-of-bailiwick glue', 'Num loose-out-bailiwick glue'])
+    current_domain = None
     for line in fileinput.input():
+        if line.startswith('; <<>> DiG 9.12.3 <<>> '):
+            current_domain = line.split()[5]
+
         if line.startswith(';; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN'):
             is_nx = True
 
@@ -116,25 +125,32 @@ def main2():
             if not ns_records and not glue_records:
                 num_emptys += 1
 
-            is_nx = False
             num_domains += 1
-            for ns_record in ns_records.values():
-                num_ns_records += 1
-                if ns_record.is_in_bailiwick():
-                    continue
+            domain_ns_records = len(ns_records)
+            num_ns_records += domain_ns_records
 
+            domain_glue_records = len(glue_records)
+            num_glue_records += domain_glue_records
+            domain_out_of_bailiwick_glue = 0
+            domain_loose_out_bailiwick_glue = 0
             for glue in glue_records:
-                num_glue_records += 1
-                ns_record = ns_records.get(glue.name)
+                ns_record = ns_records.get(glue.name.lower())
                 if ns_record is None:
                     improper_glue += 1
                 elif ns_record.is_in_bailiwick():
                     pass
                 else:
-                    num_out_of_bailiwick_glue += 1
+                    domain_out_of_bailiwick_glue += 1
                     if ns_record.shared_prefix() == '':
-                        num_loose_out_bailiwick_glue += 1
+                        domain_loose_out_bailiwick_glue += 1
 
+            num_out_of_bailiwick_glue += domain_out_of_bailiwick_glue
+            num_loose_out_bailiwick_glue += domain_loose_out_bailiwick_glue
+
+            writer.writerow([current_domain, domain_ns_records, domain_glue_records, domain_out_of_bailiwick_glue, domain_loose_out_bailiwick_glue])
+
+            current_domain = None
+            is_nx = False
             ns_records.clear()
             glue_records = []
 
@@ -146,11 +162,12 @@ def main2():
             continue
 
         if record.rrtype == NS.rrtype:
-            ns_records[record.nameserver] = record
+            ns_records[record.nameserver.lower()] = record
 
         if record.rrtype == A.rrtype:
             glue_records.append(record)
 
+    f.close()
     print('Number of domains: %s' % num_domains)
     print('NXDOMAINs: %s' % num_nxdomain)
     print('Number of empty domains: %s' % num_emptys)
