@@ -82,6 +82,19 @@ We run a small pipeline in parallel\cite{Tange2011a} to do this quickly.
 
 From some randomized sampling of the domain list, some of the domains are listed because of links to subdomains, whereas others were included despite being subdomains of others in the list (e.g. plus.google.com and google.com both appear on the list)
 
+Two of the records from the dump we used were not proper domain names:
+
+\begin{itemize}
+  \item 901855 - http://163
+  \item 903123 - http://20
+\end{itemize}
+
+We hypothesize that this is caused by the collection methodology of Majestic, and ultimately caused by malformed links such as this:
+
+\begin{quote}
+http://http://163.com/path/segments/
+\end{quote}
+
 % TODO: we should check the quality of the dataset before doing the analysis
 
 % https://singaporedatacompany.com/blog/how-many-domain-names-are-unused
