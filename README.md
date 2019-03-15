@@ -19,7 +19,7 @@ https://forms.icann.org/en/resources/compliance/registries/zfa/form
 ## Data collection from MM
 
 ```bash
-cat majestic_all_possible_domains | pv -l -s $(wc -l majestic_all_possible_domains) | parallel --will-cite -j 20 -- dig {} @127.0.0.1 NS | gzip > dig.output.gz
+cat majestic_million.csv | python3 script.alldomains.py | pv -l -s $(wc -l majestic_all_possible_domains) | parallel --will-cite -j 20 -- dig {} @127.0.0.1 NS | gzip > dig.output.gz
 ```
 
 ## Ranking statistics.csv
