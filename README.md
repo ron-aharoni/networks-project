@@ -23,13 +23,14 @@ cat majestic_million.csv | python3 script.alldomains.py > majestic_all_possible_
 cat majestic_all_possible_domains | pv -l -s $(wc -l majestic_all_possible_domains) | parallel --will-cite -j 20 -- dig {} @127.0.0.1 NS | gzip > dig.output.gz
 ```
 
-## Ranking statistics.csv
+## Ranking, statistics, and graphs
 
 ```bash
 gzcat dig.output.gz | pv -l | python3 script.dig.py > raw_results.csv
 tail -n+2 raw_results.csv | sort -t, -k1 | pv -l | cat > sorted_results.csv
 tail -n+2 majestic_million.csv | sort -t, -k3 | pv -l | cat > sorted_majestic.csv
 join -t, -o 2.1,0,1.2,1.3,1.4,1.5 -1 1 -2 3 sorted_results.csv sorted_majestic.csv | sort -t, -k1 -n | pv -l | cat <(echo $'Majestic Million Rank,Domain,Num NS records,Num glue records,Num out-of-bailiwick glue,Num loose-out-bailiwick glue') - > collated_results.csv
+cat collated_results.csv | python3 script.graphs.py
 ```
 
 ## Sanity checks
@@ -46,5 +47,5 @@ zgrep -E -e '^[^;]+(\t| )NS(\t| )' dig.output.gz | tr ' ' $'\t' | tr -s $'\t' | 
 ## Full pipeline (for video)
 
 ```bash
-join -t, -o 2.1,0,1.2,1.3,1.4,1.5 -1 1 -2 3 <(cat majestic_million.csv | head -n 1000 | python3 script.alldomains.py | parallel --will-cite -j 20 -- dig {} @127.0.0.1 NS | python3 script.dig.py | tail -n+2 | sort -t, -k1) <(tail -n+2 majestic_million.csv | sort -t, -k3) | sort -t, -k1 -n | pv -l | cat <(echo $'Majestic Million Rank,Domain,Num NS records,Num glue records,Num out-of-bailiwick glue,Num loose-out-bailiwick glue') - > collated_results.csv
+join -t, -o 2.1,0,1.2,1.3,1.4,1.5 -1 1 -2 3 <(cat majestic_million.csv | head -n 1000 | python3 script.alldomains.py | parallel --will-cite -j 20 -- dig {} @127.0.0.1 NS | python3 script.dig.py | tail -n+2 | sort -t, -k1) <(tail -n+2 majestic_million.csv | sort -t, -k3) | sort -t, -k1 -n | cat <(echo $'Majestic Million Rank,Domain,Num NS records,Num glue records,Num out-of-bailiwick glue,Num loose-out-bailiwick glue') - | python3 script.graphs.py
 ```
