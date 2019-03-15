@@ -156,6 +156,41 @@ We then used pandas and matplotlib to generate plots showing the CDF of having o
 
 \section{Evaluation and Discussion}
 
+\begin{table}
+\begin{tabular}{l|cc}
+ & & \\
+ \hline
+ Number of domains & 1,000,879 & \\
+ NXDOMAINs & 26,678 & \\
+ Number of empty domains & 65,708 & \\
+ Number of NS records & 2,476,318 & \\
+ Number of glue records & 3,156,909 & \\
+ Number of improper glue records & 0 & \\
+ Out of bailiwick glue & 3,078,764 & \\
+ Loosely out of bailiwick glue & 1,600,449 & \\
+\end{tabular}
+\end{table}
+
+\subsection{Prevalence of third party providers}
+
+\begin{table}
+\begin{tabular}{l|cc}
+ Provider & Domains & \\
+ \hline
+ ns.cloudflare.com & 218,747 & \\
+ domaincontrol.com & 129,789 & \\
+ worldnic.com & 65,400 & \\
+ myhostadmin.net & 61,948 & \\
+ dnspod.net & 45,038 & \\
+ hichina.com & 43,271 & \\
+ dnsmadeeasy.com & 40,619 & \\
+ dns.com & 24,208 & \\
+ registrar-servers.com & 23,821 & \\
+ googledomains.com & 23,705 & \\
+\end{tabular}
+\caption{Domain count for 10 most popular providers}
+\end{table}
+
 % TODO: describe and cite code on github for actual collection and analysis
 
 % TODO: present collected statistics
