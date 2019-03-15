@@ -3,6 +3,7 @@
 \title{Advanced Topics in IP Networks \\\large Out of bailiwick project}
 \date{Last edited \today}
 \author{Ron Aharoni\texorpdfstring{ - 300028065}{}, Steven Karas\texorpdfstring{ - 328620984}{}, Phillip Kaplan\texorpdfstring{ - 324478403}{}}
+\AtBeginDocument{\maketitle}
 \AtEndDocument{\vfill\bibliographystyle{plain}\bibliography{biblio}{}}
 
 \begin{document}
@@ -71,7 +72,8 @@ This is a list of the top one million sites ranked by the number of subnet that 
 From these, we constructed a list of 1,000,878 domains and domain prefixes to check for out of bailiwick glue records.
 
 \subsection{Data Quality}
-From some randomized sampling of the domain list, some of the domains are listed because of links to subdomains, whereas others were included despite being subdomains of others in the list (e.g. plus.google.com and google.com both appear on the list). Additionally, not all of the domains returned valid records.
+
+From some randomized sampling of the domain list, some of the domains are listed because of links to subdomains, whereas others were included despite being subdomains of others in the list (e.g. plus.google.com and google.com both appear on the list). Additionally, not all of the domains returned valid records (e.g. ns1.example.com as their NS record), were valid domains (e.g. http://163), or had any records at all (NXDOMAIN).
 
 To deal with these issues we decided that the correct approach was to do our analysis on zones rather than on domains. Domains that we did not consider to represent valid zones:
 \begin{itemize}
@@ -79,9 +81,7 @@ To deal with these issues we decided that the correct approach was to do our ana
   \item Domains that returned an SOA record (e.g. plus.google.com)
 \end{itemize}
 
-Out of the million initial domains we constructed a list of 1,000,878 domains and domain prefixes by using all of the possible subdomains. We did this with a simple script. Out of the generated domains, <TODO> turned out to represent valid zones.
-
-% TODO: explain how we created that list
+Out of the million initial domains we constructed a list of 1,000,878 domains and domain prefixes by using all of the possible subdomains. We did this with a simple script. Out of the generated domains, 964039 turned out to represent valid zones.
 
 \subsection{DNS record collection}
 
@@ -94,22 +94,6 @@ We run a small pipeline in parallel\cite{Tange2011a} to do this quickly.
 % \paragraph{.DE ccTLD zone file policy}
 
 % \href{https://www.denic.de/en/faqs/general-information/#faq-154}{DENIC}, the authoritative registry for the .DE ccTLD hold a strict policy of not sending the zone file to any third parties.
-
-\subsection{Data Quality}
-
-From some randomized sampling of the domain list, some of the domains are listed because of links to subdomains, whereas others were included despite being subdomains of others in the list (e.g. plus.google.com and google.com both appear on the list)
-
-Two of the records from the dump we used were not proper domain names:
-
-\begin{itemize}
-  \item 901855 - http://163
-  \item 903123 - http://20
-\end{itemize}
-
-We hypothesize that this is caused by the collection methodology of Majestic, and ultimately caused by malformed links such as this:
-\begin{quote}
-http://http://163.com/path/segments/
-\end{quote}
 
 \subsection{Data Collection}
 
@@ -194,7 +178,9 @@ We then used pandas and matplotlib to generate plots showing the CDF of having o
 % TODO: describe and cite code on github for actual collection and analysis
 
 % TODO: present collected statistics
-% TODO: embed plots of CDFs
+
+\includegraphics[width=15cm]{cdf.png}
+
 
 % TODO: discuss possible future directions
 % IDEA: collect data from other locations (azure, residential ISPs, etc)
