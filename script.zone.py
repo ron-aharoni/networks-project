@@ -92,6 +92,23 @@ class CNAME(RR):
         return cls(name=name, ttl=int(ttl), rrclass=rrclass, canonical_name=canonical_name)
 
 
+@dataclass(frozen=True)
+class SOA(RR):
+    rrtype = 'SOA'
+    mname: str
+    rname: str
+    serial: int
+    refresh: int
+    retry: int
+    expire: int
+    neg_ttl: int
+
+    @classmethod
+    def parse_zone_line(cls, line):
+        name, ttl, rrclass, rrtype, mname, rname, serial, refresh, retry, expire, neg_ttl = line.split(maxsplit=10)
+        return cls(name=name, ttl=int(ttl), rrclass=rrclass, mname=mname, rname=rname, serial=int(serial), refresh=int(refresh), retry=int(retry), expire=int(expire), neg_ttl=int(neg_ttl))
+
+
 def main2():
     num_ns_records = 0
     num_glue_records = 0
