@@ -121,6 +121,9 @@ def main2():
     is_nx = False
     num_nxdomain = 0
     num_emptys = 0
+    has_soa = False
+    has_only_soa = True
+    num_soa_only = 0
     import csv
     output_file = 'raw_results.csv'
     f = open(output_file, 'w')
@@ -141,6 +144,12 @@ def main2():
                     print('Anomolous NXDOMAIN with results: %s' % ns_records.values()[0].name)
             if not ns_records and not glue_records:
                 num_emptys += 1
+
+            if has_soa:
+                if has_only_soa:
+                    num_soa_only += 1
+                else:
+                    print('Got SOA record in nonempty zone: %s' % current_domain)
 
             num_domains += 1
             domain_ns_records = len(ns_records)
@@ -167,6 +176,8 @@ def main2():
             writer.writerow([current_domain, domain_ns_records, domain_glue_records, domain_out_of_bailiwick_glue, domain_loose_out_bailiwick_glue])
 
             current_domain = None
+            has_soa = False
+            has_only_soa = True
             is_nx = False
             ns_records.clear()
             glue_records = []
@@ -180,9 +191,14 @@ def main2():
 
         if record.rrtype == NS.rrtype:
             ns_records[record.nameserver.lower()] = record
+            has_only_soa = False
 
         if record.rrtype == A.rrtype:
             glue_records.append(record)
+            has_only_soa = False
+
+        if record.rrtype == SOA.rrtype:
+            has_soa = True
 
     f.close()
     print('Number of domains: %s' % num_domains)
@@ -193,6 +209,7 @@ def main2():
     print('Number of improper glue records: %s' % improper_glue)
     print('Out of bailiwick glue: %s' % num_out_of_bailiwick_glue)
     print('Loosely out of bailiwick glue: %s' % num_loose_out_bailiwick_glue)
+    print('Number of SOA-only records: %s' % num_soa_only)
 
 
 @dataclass()
