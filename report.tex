@@ -32,7 +32,12 @@
 DNS in broad strokes works by translating human-friendly textual names into IP addresses that can be used to send traffic to a server.
 DNS is organized into a hierarchical tree with a single entity responsible for each branch in the tree.
 For example, the root of the tree is managed by ICANN, and each of the top level domains underneath are managed by various registries.\\
-Glue records are critical to the proper functioning of the DNS system\cite{rfc1033} however, improper use of glue can leave a domain susceptible to various security vulnerabilities. Here we attempt to analyze the use of certain best practices by domain owners on the internet, specifically the prevalence of “out of bailiwick” glue records.
+Glue records are critical to the proper functioning of the DNS system\cite{rfc1033}. However, improper use of glue can leave a domain susceptible to various security vulnerabilities. Here we attempt to analyze the use of certain best practices by domain owners on the internet, specifically the prevalence of “out of bailiwick” glue records.
+
+\subsection{Related Work}
+In “The Availability and Security Implications of Glue in the Domain Name System” \cite{2016arXiv160501394W} Zheng Wang discusses the necessity of glue records to the proper functioning of DNS along with the implications of current practices in terms of both availability and security. He presents the ability of known mitigation techniques to prevent certain classes of cache poisoning attacks on DNS.
+The cache attacks he discusses were originally presented by Dan Kaminsky in his presentation “Blackops2008 – it's the end of the cache as we know it”.
+Wang additionally discusses the implications of DNSSEC and attacks on it, and whether bailiwick checking is relevant if the records are secured.
 
 \subsection{Bailiwick definition}
 
@@ -65,6 +70,17 @@ We downloaded the Majestic Million\cite{MajesticMillion} on January 18th, 2019.
 This is a list of the top one million sites ranked by the number of subnet that link to them, collected and published by Majestic.com.
 From these, we constructed a list of 1,000,878 domains and domain prefixes to check for out of bailiwick glue records.
 
+\subsection{Data Quality}
+From some randomized sampling of the domain list, some of the domains are listed because of links to subdomains, whereas others were included despite being subdomains of others in the list (e.g. plus.google.com and google.com both appear on the list). Additionally, not all of the domains returned valid records.
+
+To deal with these issues we decided that the correct approach was to do our analysis on zones rather than on domains. Domains that we did not consider to represent valid zones:
+\begin{itemize}
+  \item Domains that returned “NX Domain”
+  \item Domains that returned an SOA record (e.g. plus.google.com)
+\end{itemize}
+
+Out of the million initial domains we constructed a list of 1,000,878 domains and domain prefixes by using all of the possible subdomains. We did this with a simple script. Out of the generated domains, <TODO> turned out to represent valid zones.
+
 % TODO: explain how we created that list
 
 \subsection{DNS record collection}
@@ -91,10 +107,13 @@ Two of the records from the dump we used were not proper domain names:
 \end{itemize}
 
 We hypothesize that this is caused by the collection methodology of Majestic, and ultimately caused by malformed links such as this:
-
 \begin{quote}
 http://http://163.com/path/segments/
 \end{quote}
+
+\subsection{Data Collection}
+
+\subsection{Data Analysis}
 
 % TODO: we should check the quality of the dataset before doing the analysis
 
@@ -105,19 +124,18 @@ http://http://163.com/path/segments/
 
 % anecdote: feedio.net is errored out, but seems to have subdomains used for copyrighted content streaming.
 
-\section{Methodology}
+\section{Evaluation and Discussion}
 
 % TODO: describe and cite code on github for actual collection and analysis
-
-\section{Analysis}
 
 % TODO: present collected statistics
 % TODO: embed plots of CDFs
 
-\section{Discussion}
-
 % TODO: discuss possible future directions
 % IDEA: collect data from other locations (azure, residential ISPs, etc)
 % IDEA: cover potential solutions to the security issues
+
+\section{Conclusion}
+Our results clearly show that use of out of bailiwick glue is a widespread practice. This appears to be due to the prevalence of name servers being hosted by third party providers such as GoDaddy or Cloudflare. Third party name server hosting is largely a desirable situation, as requiring smaller web hosts to have their own nameservers would add significant relative complexity to their network and require additional expertise, and would therefore provide additional attack surface ripe for exploitation by a determined attacker. The better way to deal with this problem is likely to make use of DNSSEC, which is much more resistant to the types of attacks analyzed in the works we discussed.
 
 \end{document}
