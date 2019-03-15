@@ -113,7 +113,37 @@ http://http://163.com/path/segments/
 
 \subsection{Data Collection}
 
+DNS queries
+To perform the DNS queries, we used dig. Dig is a command line tool for querying the domain name system. We used the following command to fetch the name server records for all domains:
+\begin{verbatim}
+dig [domain] @127.0.0.1 NS
+\end{verbatim}
+Where the localhost flag instructed dig to use the local resolver.
+Since we were limited largely by the round trip time of serially sending queries, to speed up the process we used the parallel utility running 20 queries at any given time.
+
+We used a BIND server configured as a recursive resolver to query the records for the domain list.
+We constructed and sent our queries using dig in a parallel \cite{Tange2011a} pipeline to quickly gather the data:
+
+\begin{verbatim}
+cat majestic_all_possible_domains | parallel -j 20 -- dig {} @127.0.0.1 NS | 
+  gzip > dig.output.gz
+\end{verbatim}
+
+After less than 6 hours all of the queries had been completed and the data stored in a text summary file.
+
 \subsection{Data Analysis}
+
+using Python3 to parse the zone files and gather statistics. Graphs were plotted using pandas and matplotlib.
+We set up a short pipeline to collate the unsorted results against the original ranked list:
+\begin{verbatim}
+	tail -n+2 raw_results.csv | sort -t, -k1 | pv -l | cat > sorted_results.csv
+tail -n+2 majestic_million.csv | sort -t, -k3 | pv -l | cat > sorted_majestic.csv
+join -t, -o 2.1,0,1.2,1.3,1.4,1.5 -1 1 -2 3 sorted_results.csv sorted_majestic.csv | 
+  sort -t, -k1 -n | pv -l | cat <(echo $'Majestic Million Rank,Domain,
+    Num NS records,Num glue records,Num out-of-bailiwick glue,Num loose-out-bailiwick glue') 
+      - > collated_results.csv
+\end{verbatim}
+We then used pandas and matplotlib to generate plots showing the CDF of having out-of-bailiwick glue records.
 
 % TODO: we should check the quality of the dataset before doing the analysis
 
