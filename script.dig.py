@@ -8,7 +8,10 @@
 import fileinput
 from dataclasses import dataclass
 import typing
+import sys
 
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
 
 @dataclass(frozen=True)
 class RR:
@@ -107,7 +110,7 @@ class SOA(RR):
         return cls(name=name, ttl=int(ttl), rrclass=rrclass, mname=mname, rname=rname, serial=int(serial), refresh=int(refresh), retry=int(retry), expire=int(expire), neg_ttl=int(neg_ttl))
 
 
-def main2():
+def main():
     num_ns_records = 0
     num_glue_records = 0
     num_out_of_bailiwick_glue = 0
@@ -123,9 +126,7 @@ def main2():
     has_only_soa = True
     num_soa_only = 0
     import csv
-    output_file = 'raw_results.csv'
-    f = open(output_file, 'w')
-    writer = csv.writer(f)
+    writer = csv.writer(sys.stdout)
     writer.writerow(['Domain', 'Num NS records', 'Num glue records', 'Num out-of-bailiwick glue', 'Num loose-out-bailiwick glue'])
     current_domain = None
     for line in fileinput.input():
@@ -139,7 +140,7 @@ def main2():
             if is_nx:
                 num_nxdomain += 1
                 if ns_records or glue_records:
-                    print('Anomolous NXDOMAIN with results: %s' % ns_records.values()[0].name)
+                    eprint('Anomolous NXDOMAIN with results: %s' % ns_records.values()[0].name)
             if not ns_records and not glue_records:
                 num_emptys += 1
 
@@ -147,7 +148,7 @@ def main2():
                 if has_only_soa:
                     num_soa_only += 1
                 else:
-                    print('Got SOA record in nonempty zone: %s' % current_domain)
+                    eprint('Got SOA record in nonempty zone: %s' % current_domain)
 
             num_domains += 1
             domain_ns_records = len(ns_records)
@@ -198,17 +199,16 @@ def main2():
         if record.rrtype == SOA.rrtype:
             has_soa = True
 
-    f.close()
-    print('Number of domains: %s' % num_domains)
-    print('NXDOMAINs: %s' % num_nxdomain)
-    print('Number of empty domains: %s' % num_emptys)
-    print('Number of NS records: %s' % num_ns_records)
-    print('Number of glue records: %s' % num_glue_records)
-    print('Number of improper glue records: %s' % improper_glue)
-    print('Out of bailiwick glue: %s' % num_out_of_bailiwick_glue)
-    print('Loosely out of bailiwick glue: %s' % num_loose_out_bailiwick_glue)
-    print('Number of SOA-only records: %s' % num_soa_only)
+    eprint('Number of domains: %s' % num_domains)
+    eprint('NXDOMAINs: %s' % num_nxdomain)
+    eprint('Number of empty domains: %s' % num_emptys)
+    eprint('Number of NS records: %s' % num_ns_records)
+    eprint('Number of glue records: %s' % num_glue_records)
+    eprint('Number of improper glue records: %s' % improper_glue)
+    eprint('Out of bailiwick glue: %s' % num_out_of_bailiwick_glue)
+    eprint('Loosely out of bailiwick glue: %s' % num_loose_out_bailiwick_glue)
+    eprint('Number of SOA-only records: %s' % num_soa_only)
 
 
 if __name__ == '__main__':
-    main2()
+    main()
