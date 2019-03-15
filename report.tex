@@ -31,7 +31,8 @@
 
 DNS in broad strokes works by translating human-friendly textual names into IP addresses that can be used to send traffic to a server.
 DNS is organized into a hierarchical tree with a single entity responsible for each branch in the tree.
-For example, the root of the tree is managed by ICANN, and each of the top level domains underneath are managed by various registries.
+For example, the root of the tree is managed by ICANN, and each of the top level domains underneath are managed by various registries.\\
+Glue records are critical to the proper functioning of the DNS system\cite{rfc1033} however, improper use of glue can leave a domain susceptible to various security vulnerabilities. Here we attempt to analyze the use of certain best practices by domain owners on the internet, specifically the prevalence of “out of bailiwick” glue records.
 
 \subsection{Bailiwick definition}
 
