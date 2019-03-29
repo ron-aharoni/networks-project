@@ -1,4 +1,5 @@
 \documentclass{idc_msc}
+\usepackage{float}
 
 \title{Advanced Topics in IP Networks \\\large Out of bailiwick project}
 \date{Last edited \today}
@@ -23,13 +24,11 @@
   % • In case you scan a handwritten solution, make sure the pages are properly ordered and oriented, the text is in focus, the contrast between the text and the background is high, and the resolution is such that the page width fits a standard computer screen. The whole solution should be submitted in one pdf file.
   % • Failing to meet any of the submissions requirements may result in point deduction or even your submission not being graded.
 
-\section{Abstract}
-
-\section{Background}
+\section{Introduction}
 
 % TODO: fill in background on DNS and nameservers and glue records
 % TODO: fill in background on bailiwick concept and in-bailiwick servers and out-of-bailiwick servers
-
+\subsection{Abstract}
 DNS in broad strokes works by translating human-friendly textual names into IP addresses that can be used to send traffic to a server.
 DNS is organized into a hierarchical tree with a single entity responsible for each branch in the tree.
 For example, the root of the tree is managed by ICANN, and each of the top level domains underneath are managed by various registries.\\
@@ -128,6 +127,7 @@ join -t, -o 2.1,0,1.2,1.3,1.4,1.5 -1 1 -2 3 sorted_results.csv sorted_majestic.c
       - > collated_results.csv
 \end{verbatim}
 We then used pandas and matplotlib to generate plots showing the CDF of having out-of-bailiwick glue records.
+The code can be found at Github\cite{Code}.
 
 % TODO: we should check the quality of the dataset before doing the analysis
 
@@ -140,7 +140,9 @@ We then used pandas and matplotlib to generate plots showing the CDF of having o
 
 \section{Evaluation and Discussion}
 
-\begin{table}
+\subsection{Results}
+
+\begin{table}[H]
 \begin{tabular}{l|cc}
  & & \\
  \hline
@@ -157,7 +159,7 @@ We then used pandas and matplotlib to generate plots showing the CDF of having o
 
 \subsection{Prevalence of third party providers}
 
-\begin{table}
+\begin{table}[H]
 \begin{tabular}{l|cc}
  Provider & Domains & \\
  \hline
@@ -175,18 +177,18 @@ We then used pandas and matplotlib to generate plots showing the CDF of having o
 \caption{Domain count for 10 most popular providers}
 \end{table}
 
-% TODO: describe and cite code on github for actual collection and analysis
-
 % TODO: present collected statistics
-
-\includegraphics[width=15cm]{cdf.png}
-
-
 % TODO: discuss possible future directions
 % IDEA: collect data from other locations (azure, residential ISPs, etc)
 % IDEA: cover potential solutions to the security issues
+\subsection{CDF}
+\includegraphics[width=15cm]{cdf.png}
+
+\subsection{Discussion}
+Our results clearly show that use of out of bailiwick glue is a widespread practice. This appears to be due to the prevalence of name servers being hosted by third party providers such as GoDaddy or Cloudflare. Third party name server hosting is largely a desirable situation, as requiring smaller web hosts to have their own nameservers would add significant relative complexity to their network and require additional expertise, and would therefore provide additional attack surface ripe for exploitation by a determined attacker. The better way to deal with this problem is likely to make use of DNSSEC, which is much more resistant to the types of attacks analyzed in the works we discussed.
 
 \section{Conclusion}
-Our results clearly show that use of out of bailiwick glue is a widespread practice. This appears to be due to the prevalence of name servers being hosted by third party providers such as GoDaddy or Cloudflare. Third party name server hosting is largely a desirable situation, as requiring smaller web hosts to have their own nameservers would add significant relative complexity to their network and require additional expertise, and would therefore provide additional attack surface ripe for exploitation by a determined attacker. The better way to deal with this problem is likely to make use of DNSSEC, which is much more resistant to the types of attacks analyzed in the works we discussed.
+
+DNS glue is a critical component of DNS, but has security implications. Certain types of DNS spoofing attacks can be mitigated by servers refusing to cache based on glue for out of bailiwick name servers. However, the vast majority of name servers on the internet are in fact out of bailiwick. This is justifiable since the overhead of hosting a private name server is high. A better way to mitigate these attacks would be widespread adoption of DNSSEC.
 
 \end{document}
